@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "pm2 start server.js",
+    "start": "pm2-runtime start ecosystem.config.js --env production",
     "dev": "nodemon server.js"
   },
   "repository": {
