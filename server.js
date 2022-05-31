@@ -1,14 +1,18 @@
-import express from 'express';
-const app = express();
-import { createServer } from 'http';
-const server = createServer(app);
 import { config } from 'dotenv';
+import express from 'express';
+import { createServer } from 'http';
 import { Server } from "socket.io";
+const app = express();
+const server = createServer(app);
 
 config();
 const PORT = process.env.PORT || 7000;
 
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+    },
+});
 
 io.on("connection", (socket) => {
     console.log(`*Client connected: ${socket.id}`);
@@ -57,5 +61,7 @@ app.get('/', (req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`listening on *:${PORT}`);
+    console.log(
+        `Server running on http://localhost:${PORT}`
+    );
 });
